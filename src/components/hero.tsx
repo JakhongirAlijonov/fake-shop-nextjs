@@ -2,8 +2,8 @@ import React from 'react'
 
 function Hero() {
   return (
-    <section className="text-gray-400 bg-transparent body-font">
-    <div className="container mx-auto flex px-5 pb-24 md:flex-row flex-col items-center">
+    <section className="text-gray-400 bg-transparent body-font mt-48">
+    <div className="container mx-auto flex px-5 pb-24  md:flex-row flex-col items-center">
       <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
         <img className="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600" />
       </div>
