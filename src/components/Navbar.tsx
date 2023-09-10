@@ -11,10 +11,9 @@ function Navbar() {
         <span className="ml-3 text-xl">Fake Shopping</span>
       </Link>
       <nav className="md:ml-auto flex flex-wrap items-center text-base cursor-pointer justify-center">
-        <a className="mr-5 hover:text-white">Home</a>
-        <a className="mr-5 hover:text-white">Second Link</a>
-        <a className="mr-5 hover:text-white">Third Link</a>
-        <a className="mr-5 hover:text-white">Fourth Link</a>
+        <Link href={"/"} className="mr-5 hover:text-white">Home</Link>
+        <Link href={"/products"} className="mr-5 hover:text-white">All products</Link>
+       
       </nav>
 
       <button className="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">Login
