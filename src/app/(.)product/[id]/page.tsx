@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import CustomImage from "@/components/Image";
 import ReactStars from "react-stars";
+import { toast } from "react-toastify";
 
 function ProductDetailedPage() {
   const [product, setProduct] = useState<ProductType>();
@@ -12,6 +13,29 @@ function ProductDetailedPage() {
   const [isOpen, setisOpen] = useState(true);
   const { id } = useParams();
   const router = useRouter();
+
+  function handleClick() {
+    const products: ProductType[] =
+      JSON.parse(localStorage.getItem("carts") as string) || [];
+    const isExist = products.find((c) => c.id == product?.id);
+    if (isExist) {
+      const updatedProduct = products.map((c) => {
+        if (c.id === product?.id) {
+          return {
+            ...c,
+            quantity: c.quantity + 1,
+          };
+        }
+        return c;
+      });
+      localStorage.setItem("carts", JSON.stringify(updatedProduct));
+    } else {
+      const data = [...products, { ...product, quantity: 1 }];
+      localStorage.setItem("carts", JSON.stringify(data));
+    }
+    toast("Item added succesfully!");
+  }
+
   useEffect(() => {
     async function getData() {
       setisLoading(true);
@@ -53,14 +77,15 @@ function ProductDetailedPage() {
                       <p> {product?.rating.rate} </p>
                       {product?.rating.rate && (
                         <div className="flex items-center ml-2 mr-6">
-                        <ReactStars edit={false} value={product.rating.rate} />
-                        
-                          <p className='text-blue-600 hover:underline cursor-pointer ml-8 text-xs'>
+                          <ReactStars
+                            edit={false}
+                            value={product.rating.rate}
+                          />
 
-												See all {product?.rating.count} reviews
-											</p>
+                          <p className="text-blue-600 hover:underline cursor-pointer ml-8 text-xs">
+                            See all {product?.rating.count} reviews
+                          </p>
                         </div>
-                        
                       )}
                     </div>
                     <p className="line-clamp-5 text-sm">
@@ -68,17 +93,20 @@ function ProductDetailedPage() {
                     </p>
                   </div>
 
-                  <div className='space-y-3 text-sm'>
-										<button className='button w-full bg-blue-600 p-2 transition rounded text-white border-transparent hover:border-blue-600 border hover:bg-transparent hover:text-black'>
-											Add to bag
-										</button>
-										<button
-											onClick={() => window.location.reload()}
-											className='button w-full bg-blue-600 p-2 transition rounded text-white border-transparent hover:border-blue-600 border hover:bg-transparent hover:text-black'
-										>
-											View full details
-										</button>
-									</div>
+                  <div className="space-y-3 text-sm">
+                    <button
+                      className="button w-full bg-blue-600 p-2 transition rounded text-white border-transparent hover:border-blue-600 border hover:bg-transparent hover:text-black"
+                      onClick={handleClick}
+                    >
+                      Add to bag
+                    </button>
+                    <button
+                      onClick={() => window.location.reload()}
+                      className="button w-full bg-blue-600 p-2 transition rounded text-white border-transparent hover:border-blue-600 border hover:bg-transparent hover:text-black"
+                    >
+                      View full details
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
