@@ -1,4 +1,5 @@
 import Product from "@/components/Product"
+import Cta from "@/components/cta"
 import Hero from "@/components/hero"
 import { ProductType } from "@/interface"
 
@@ -21,6 +22,7 @@ export default async function Home() {
           }
         </div>
       </section>
+      <Cta />
     </main>
   )
 }
